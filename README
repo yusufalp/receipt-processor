@@ -33,7 +33,7 @@ Check the following websites to install them.
 
 The service will be running on `localhost` on port `8080`, at http://localhost:8080
 
-Note: Feel free to change this port number by changing the `PORT` variable [here](https://github.com/yusufalp/receipt-processor/blob/7418479232532c1ba8d888afe350aca613345a4f/app.js#L11).
+Note: Feel free to change this port number by changing the `PORT` variable [here](https://github.com/yusufalp/receipt-processor/blob/7418479232532c1ba8d888afe350aca613345a4f/app.js#L11)
 
 ## Summary of API Specification
 
