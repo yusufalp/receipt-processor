@@ -14,16 +14,58 @@ export default class Points {
     this.points = points;
   }
 
-  inRetailerName() {}
+  inRetailerName() {
+    const regex = /[a-zA-Z0-9]/;
 
-  inDollarAmount() {}
+    for (let char of this.receipt.retailer) {
+      if (regex.test(char)) {
+        this.points++;
+      }
+    }
+  }
 
-  inNumberOfItems() {}
+  inDollarAmount() {
+    if (parseFloat(this.receipt.total) % 1 === 0) {
+      this.points += 50;
+    }
 
-  inItemDescription() {}
+    if (parseFloat(this.receipt.total) % 0.25 === 0) {
+      this.points += 25;
+    }
+  }
 
-  inDate() {}
-  inTime() {}
+  inNumberOfItems() {
+    this.points += Math.floor(this.receipt.items.length / 2) * 5;
+  }
+
+  inItemDescription() {
+    for (let item of this.receipt.items) {
+      if (item.shortDescription.trim().length % 3 === 0) {
+        let point = Math.ceil(parseFloat(item.price) * 0.2);
+        this.points += point;
+      }
+    }
+  }
+
+  inDate() {
+    const day = this.receipt.purchaseDate.substring(
+      this.receipt.purchaseDate.length - 2
+    );
+
+    if (parseInt(day) % 2 !== 0) {
+      this.points += 6;
+    }
+  }
+
+  inTime() {
+    const [hour, minute] = this.receipt.purchaseTime.split(":");
+
+    const totalMinutes = parseInt(hour) * 60 + parseInt(minute);
+
+    if (totalMinutes > 840 && totalMinutes < 960) {
+      this.points += 10;
+    }
+  }
 
   calculatePoints() {
     this.inRetailerName();
