@@ -12,7 +12,7 @@ export const getPointsById = (req, res, next) => {
 
   const receipt = processedReceipts.get(id);
 
-  const points = new Points(receipt).getPoints();
+  const points = receipt.points;
 
   res.status(200).json({ points });
 };
@@ -21,8 +21,9 @@ export const processReceipt = (req, res, next) => {
   const receipt = req.body;
 
   const id = uuidv4();
+  const points = new Points(receipt).getPoints();
 
-  const newReceipt = { id, ...receipt };
+  const newReceipt = { id, points, ...receipt };
 
   processedReceipts.set(id, newReceipt);
   console.log("processedReceipts :>> ", processedReceipts);
